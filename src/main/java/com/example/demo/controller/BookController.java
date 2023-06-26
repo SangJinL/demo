@@ -51,7 +51,6 @@ public class BookController {
         BookDTO dto = service.read(gno);
         model.addAttribute("dto", dto);
     }
-
     @PostMapping("/remove")
     public String remove(long gno, RedirectAttributes redirectAttributes){
         log.info("gno: " + gno);

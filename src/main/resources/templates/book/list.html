@@ -10,7 +10,7 @@
     </h1>
     <form action="/book/list" method="get" id="searchForm">
       <div class="input-group">
-        <input type="hidden" name="page" th:value="1">
+        <input type="hidden" name="page" th:value="${pageRequestDTO.page}">
         <div class="input-group-sm">
           <select class="form-select-sm" name="type">
             <option th:selected="${pageRequestDTO.type == null}">----------------------</option>
@@ -46,7 +46,7 @@
         </th>
         <td>[[${dto.title}]]</td>
         <td>[[${dto.author}]]</td>
-        <td>[[${dto.regDate}]]</td>
+        <td>[[${dto.type}]]</td>
       </tr>
       </tbody>
     </table>
@@ -58,12 +58,12 @@
       </li>
       <!-- 현재 페이지 목록 리스트 -->
       <!-- 삼항 연산자로 현재 페이지 리스트가 존재할 경우에만 다 표시. -->
-      <li th:class="'page-item ' + ${result.page == page?'active' : ''}"  th:each="page: ${result.pageList}">
+      <li th:class="'page-item ' + (${result.page} == page ? 'active' : '')"  th:each="page: ${result.pageList}">
         <a class="page-link" th:href="@{/book/list(page=${page}, size=${result.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">[[${page}]]</a>
       </li>
       <!-- 다음(Next) 페이지 버튼 -->
       <li class="page-item" th:if="${result.next}">
-        <a class="page-link" th:href="@{/book/list(page=${result.end + 1}, size=${result.size}, size=${result.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}" tabindex="-1">Next</a>
+        <a class="page-link" th:href="@{/book/list(page=${result.end + 1}, size=${result.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}" tabindex="-1">Next</a>
       </li>
     </ul>
     <div class="modal" tabindex="-1">
